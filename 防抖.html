@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="content"></div>
+	</body>
+	<script>
+		
+		let num = 0;
+		let content = document.getElementById("content");
+		
+		// 正常处理
+		function count() {
+			content.innerHTML = num++;
+		};
+		
+		// 节流处理 
+		function throttle(fn, interval){
+			let last = 0;
+			return function(){
+				let context = this;
+				let args = arguments;
+				// 记录现在的时间
+				let now = +new Date();
+				console.log(now);
+				// 超时
+				if(now - last >= interval){
+					// 设置最近一次时间
+					last = now;
+					fn.apply(context, args);
+				}
+			}
+		}
+		
+		// 防抖处理
+		function debounce(fn, delay) {
+			let timeout;
+			return function(){
+				// 保存 this
+				let context = this;
+				// 保存参数
+				let args = arguments;
+				if(timeout) clearTimeout(timeout);
+				
+				// 设立新的定时器
+				timeout = setTimeout(function() {
+					fn.apply(context, args)
+				}, delay)
+			}
+		}
+		
+		// 用节流优化防抖 因为防抖会无限等待 但是会在结束后执行两次
+		function debounceS(fn, delay) {
+			let timeout;
+			let last = 0;
+			return function(){
+				// 保存 this
+				let context = this;
+				// 保存参数
+				let args = arguments;
+				// 时间戳
+				let now = +new Date();
+				
+				if(now - last < delay){
+					// 没超时 还可以再延迟一会
+					clearTimeout(timeout);
+					// 设立新的定时器
+					timeout = setTimeout(function() {
+						fn.apply(context, args)
+					}, delay)
+				}else{
+					// 超时了 不等了给一次反应
+					last = now;
+					fn.apply(context, args);
+				}
+			}
+		}
+		
+		content.onmousemove = debounceS(count, 1000);
+		
+	</script>
+	<style>
+		#content {
+			width: 200px;
+			height: 200px;
+			background-color: papayawhip;
+			text-align: center;
+			font-size: 30px;
+			color: gray;
+		}
+	</style>
+</html>
