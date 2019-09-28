@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var a = [2,4,7,8,11,14,17,18,23,26,35,46,50];
+			var b = [2,3,4,5,7,10,30,45,48,49,50];
+			function mergeArray(a, b){
+				let p = 0;
+				let q = 0;
+				let index = 0;
+				
+				let res = [];
+				let reslen = a.length + b.length;
+				console.log(reslen);
+				
+				while(index<reslen){
+					if(a[p] >= b[q]){
+						res[index++] = b[q++];
+						if(q == b.length){
+							for(let i = p;i<a.length;i++){
+								res[index++] = a[i];
+							}
+						}
+						break;
+					}else{
+						res[index++] = a[p++];
+						if(p == a.length){
+							for(let i = q;i<b.length;i++){
+								res[index++] = b[i];
+							}
+						}
+					}
+				}
+				
+				return res;
+			}
+			console.log(mergeArray(a, b));
+		</script>
+	</body>
+</html>
