@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var getVersion = function(){
+				let lastV = []; //版本号存储数组
+				let v = version.substr(1).split("."); //获取数值数组
+				function res(){
+					lastV.push(version); //存储当前版本号 因为每次都会调用此函数 所以写在这里
+					version = `V${v[0]}.${v[1]}.${v[2]}`; //生成新的版本号
+					console.log(lastV);
+					return version; //返回新的版本号
+				}
+				return {
+					patch: function(){
+						v[2] = parseInt(v[2]) + 1; //最后一位加1
+						return res()
+					},
+					minor: function(){ //中间加1 最后一位归零
+						v[1] = parseInt(v[1]) + 1;
+						v[2] = 0;
+						return res();
+					},
+					major: function(){ //第一位加1 其余归零
+						v[0] = parseInt(v[0]) + 1;
+						v[1] = v[2] = 0;
+						return res();
+					},
+					rollback: function(){ //删除数组最后一个元素 并弹出
+						if(lastV.length != 0){ //判断是否有可返回的旧版本
+							return lastV.pop();
+						}else{
+							console.log("没有可返回的旧版本")
+							return false;
+						}
+					}
+				}
+			}
+			let version = "V0.11.12";
+			var V = getVersion();
+			console.log(V.patch());
+			console.log(V.minor());
+			console.log(V.major());
+			console.log(V.rollback());
+			console.log(V.rollback());
+			console.log(V.rollback());
+			console.log(V.rollback());
+		</script>
+	</body>
+</html>
