@@ -6,37 +6,32 @@
 	</head>
 	<body>
 		<script>
-			console.log(])
-			var a = [2,4,7,8,11,14,17,18,23,26,35,46,50];
-			var b = [2,3,4,5,7,10,30,45,48,49,50];
-			function mergeArray(a, b){
-				let p = 0;
-				let q = 0;
-				let index = 0;
-				
+			console.log()
+			var a = [2, 4, 7, 8, 11, 35, 46, 50, 67, 78];
+			var b = [2, 3, 4, 5, 7, 10, 30, 45];
+
+			function mergeArray(a, b) {
+				let m = 0;
+				let n = 0;
 				let res = [];
-				let reslen = a.length + b.length;
-				console.log(reslen);
 				
-				while(index<reslen){
-					if(a[p] >= b[q]){
-						res[index++] = b[q++];
-						if(q == b.length){
-							for(let i = p;i<a.length;i++){
-								res[index++] = a[i];
+				while (m != a.length && n != b.length) {
+					if (a[m] <= b[n]) {
+						res.push(a[m++]);
+						if(m == a.length){
+							for(let i=n;i<b.length;i++){
+								res.push(b[i]);
 							}
 						}
-						break;
-					}else{
-						res[index++] = a[p++];
-						if(p == a.length){
-							for(let i = q;i<b.length;i++){
-								res[index++] = b[i];
+					} else {
+						res.push(b[n++]);
+						if(n == b.length){
+							for(let i=m;i<a.length;i++){
+								res.push(a[i]);
 							}
 						}
 					}
 				}
-				
 				return res;
 			}
 			console.log(mergeArray(a, b));
