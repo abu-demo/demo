@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let a = ['a', 'b', 'c', 'd'];
+			
+			function cutArray(a, n){
+				let res = []; //结果数组
+				if(n <= 0){ return false;} //n不合法
+				let len = a.length;
+				if(n>a.length){ return a} //n大于数组长度
+				
+				let t = []; //利用求余截取
+				for(let i = 1;i<=len;i++){
+					t.push(a[i-1]);
+					if(i%n == 0){
+						res.push(t);
+						t.length = 0;
+					}
+				}
+				if(t.length != 0){ //处理未截取部分
+					res.push(t);
+				}
+				return res;
+			}
+			console.log(cutArray(a, 2));
+		</script>
+	</body>
+</html>
