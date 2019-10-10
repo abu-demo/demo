@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        const LinkedList = function () {
+            let head = null;
+            let size = 0;
+
+            // node节点模型
+            function LinkNode(element, next) {
+                this.element = element;
+                this.next = next;
+            }
+
+            //根据索引，获取目标对象
+            function node(index) {
+                let obj = head;
+                for (let i = 0; i < index; i++) {
+                    obj = obj.next;
+                }
+
+                return obj;
+            }
+
+            function append(element) {
+                if (size == 0) {
+                    head = new LinkNode(element, null);
+                } else {
+                    let obj = node(size - 1); //保留当前节点
+                    obj.next = new LinkNode(element, null);
+                }
+                size++;
+            }
+
+            // console
+            function toString() {
+                let obj = head;
+                for (let i = 0; i < size; i++) {
+                    console.log(obj.element);
+                    obj = obj.next;
+                }
+            }
+
+            this.append = append;
+            this.toString = toString;
+        }
+
+        var obj = new LinkedList();
+        obj.append(3);
+        obj.toString();
+    </script>
+</body>
+
+</html>
