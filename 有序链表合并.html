@@ -50,18 +50,27 @@
                 console.log(str);
             }
 
-            // 暴露接口
             this.append = append;
             this.toString = toString;
         }
 
-        var obj = new LinkedList();
-        obj.append(3);
-        obj.append(5);
-        obj.append(8);
-        obj.append(10);
-        obj.append(12);
-        obj.toString();
+        var a = [1,3,5,7,10,13,17];
+        var A = new LinkedList();
+        for(let e of a){
+            A.append(e);
+        }
+        A.toString();
+
+        var b = [2,3,6,8,9,12,20,21,24,26];
+        var B = new LinkedList();
+        for(let e of a){
+            A.append(e);
+        }
+        A.toString();
+
+        var res = new LinkedList();
+        
+
     </script>
 </body>
 
